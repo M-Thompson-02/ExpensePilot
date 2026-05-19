@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+    <body>
+        <button class="menu-button" onclick="toggleMenu()">☰</button>
+        <div class="sidebar" id="sidebar">
+            <a href="/add">Add Transaction</a>
+            <a href="/transactions">View Transactions</a>
+            <a href="/categories">Spending by Category</a>
+            <a href="/budget">View Budget</a>
+            <a href="/monthly">Monthly Summary</a>
+        </div>
+
+        <div class="content" id="content">
+            {% block content %}{% endblock %}
+        </div>
+
+        <script>
+            function toggleMenu() {
+                const sidebar = document.getElementById('sidebar');
+                const content = document.getElementById('content');
+                sidebar.classList.toggle('active');
+                content.classList.toggle('menu-open');
+            }
+
+            // Close menu when a link is clicked
+            const sidebarLinks = document.querySelectorAll('.sidebar a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    document.getElementById('sidebar').classList.remove('active');
+                    document.getElementById('content').classList.remove('menu-open');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const sidebar = document.getElementById('sidebar');
+                const menuButton = document.querySelector('.menu-button');
+                
+                if (!sidebar.contains(event.target) && !menuButton.contains(event.target)) {
+                    sidebar.classList.remove('active');
+                    document.getElementById('content').classList.remove('menu-open');
+                }
+            });
+        </script>
+    </body>
+</html>

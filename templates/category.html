@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>{{ category }} Transactions</title></head>
+<body>
+    <h1>{{ category|title }} Transactions</h1>
+    <p>Total Spent: ${{ "%.2f"|format(total_spent|float) }}</p>
+    <ul>
+        {% for tx in transactions %}
+            <li>{{ tx.date }} - ${{ "%.2f"|format(tx.amount|float) }}</li>
+        {% else %}
+            <li>No transactions in this category.</li>
+        {% endfor %}
+    </ul>
+    <a href="/categories">Back to Categories</a>
+</body>
+</html>

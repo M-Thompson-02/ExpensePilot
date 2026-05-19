@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head><title>Budget</title></head>
+<body>
+    <h1>Set Your Budget</h1>
+    <form method="post" action="/set_budget">
+        <label for="budget">Budget Amount:</label>
+        <input type="number" id="budget" name="budget" step="0.01" value="{{ budget }}" required>
+        <button type="submit">Update Budget</button>
+    </form>
+    
+    <h2>Budget Status</h2>
+    <p>Current Budget: ${{ "%.2f"|format(budget) }}</p>
+    <p>Total Spent: ${{ "%.2f"|format(total_spent) }}</p>
+    <p>Remaining: ${{ "%.2f"|format(remaining) }}</p>
+    <p>{{ message }}</p>
+
+    <a href="/dashboard" style="margin-top: 20px; display: block;">Back to Dashboard</a>
+</body>
+</html>

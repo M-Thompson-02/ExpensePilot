@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> All Transactions</title>
+    </head>
+
+    <body>
+        <h1> All Transactions </h1>
+        <a href="/dashboard">Back to Dashboard</a>
+
+        <hr>
+            {% if transactions %}
+            <table border="1">
+                <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Category</th>
+                </tr>
+                
+                {% for transaction in transactions %}
+                <tr>
+                    <td>{{ transaction.date.strftime("%Y-%m-%d") }}</td>
+                    <td>{{ transaction.description }}</td>
+                    <td>${{ transaction.amount }}</td>
+                    <td>{{ transaction.category | title }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        
+        {% else %}
+            <p>No transactions found.</p>
+        {% endif %}
+    </body>
+</html>

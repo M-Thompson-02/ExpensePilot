@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Categories</title>
+
+        <style> 
+            ul {
+                list-style-position: inside;
+                text-align: center;
+                margin: 0;
+                width: fit-content;
+            }
+            li {
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 style = "text-align: center;">Categories</h1>
+        <ul>
+            {% for cat in categories %}
+                <li><a href="/categories/{{cat}}">{{ cat|title }}</a></li>
+            {% endfor %}
+        </ul>
+        
+        <a href="/dashboard" style="margin-top: 20px; display: block;">Back to Dashboard</a>
+    </body>
+</html>

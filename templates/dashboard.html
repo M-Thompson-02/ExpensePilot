@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Dashboard</h1>
+
+<div id="centerContent">
+  <p>Welcome to ExpensePilot! Here are your recent transactions:</p>
+
+  <div id="chartContainer">
+    <canvas id="spendingChart"></canvas>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+const categoryData = JSON.parse('{{ category_totals | tojson | safe }}');
+
+const labels = Object.keys(categoryData).map(
+  category => category.charAt(0).toUpperCase() + category.slice(1)
+);
+
+const values = Object.values(categoryData);
+
+const colors = labels.map(() => {
+    return `hsl(${Math.random() * 360}, 70%, 60%)`;
+});
+
+const ctx = document.getElementById('spendingChart');
+
+new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: "Spending by Category",
+            data: values,
+            backgroundColor: colors,
+            borderWidth: 1,
+            hoverOffset: 10
+        }]
+    }
+});
+
+</script>
+
+<h2>Recent Transactions</h2>
+<ul>
+  {% for tx in recent_transactions %}
+    <li>{{ tx.date }} - {{ tx.category | title }} - ${{ "%.2f"|format(tx.amount|float) }}</li>
+  {% else %}
+    <li>No transactions yet.</li>
+  {% endfor %}
+</ul>
+</div>
+
+
+{% endblock %}
