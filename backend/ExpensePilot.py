@@ -12,7 +12,11 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 
 print("DATABASE_URL =", DATABASE_URL)
 
-app = Flask(__name__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__)) 
+app = Flask(__name__,
+            template_folder=os.path.join(BASE_DIR, "../templates"),
+            static_folder=os.path.join(BASE_DIR, "../static")
+        )
 
 if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = DATABASE_URL.replace(
