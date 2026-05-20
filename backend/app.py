@@ -62,6 +62,10 @@ def get_current_budget():
         db.session.commit()
     return budget_record.amount
 
+@app.route("/")
+def index():
+    return redirect("/dashboard")
+
 @app.route("/dashboard")
 def dashboard():     
     transactions = Transaction.query.all()
